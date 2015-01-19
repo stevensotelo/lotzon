@@ -52,6 +52,7 @@
 	        </nav>
 	        <div class="container cover-container">          
 	          <div class="inner cover" ng-view="">
+	          	<div id="map_canvas"></div>
 	          	{% block content %}
 	    		{% endblock %}
 	          </div>
@@ -65,13 +66,33 @@
 	    </div>
 	    
 	    <!-- general -->
-	    <script src="{% static "scripts/jquery.js" %}"></script>
-	    <script src="{% static "scripts/bootstrap.js" %}"></script>
-	    <script src="{% static "scripts/angular.js" %}"></script>
+	    <script type="text/javascript" src="{% static "scripts/jquery.js" %}"></script>
+	    <script type="text/javascript" src="{% static "scripts/bootstrap.js" %}"></script>
+	    <!-- <script type="text/javascript" src="{% static "scripts/angular.js" %}"></script>
 	    <!-- endgeneral -->
+	    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBFM01lHIcwMPR5pisDs5KfHqUqA1eglXY&sensor=FALSE">
+    	</script>
+    	<script type="text/javascript"> 
+    		var mapOptions;   
+    		var map;		
+      		function initialize() {
+        		mapOptions = {
+	          		center: new google.maps.LatLng(-34.397, 150.644),
+	          		zoom: 8,
+	          		mapTypeId: google.maps.MapTypeId.ROADMAP
+        		};
+        		map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
+        	}
+        	
+
+        	$(this).ready(function(){
+    			initialize();
+    			console.log(map);
+    		});
+      		
+    </script>
 
 	    <!-- angular -->
-	    <script src="{% static "scripts/app.js" %}"></script>
 	    <!-- endangular -->
 
 	    {% block scripts %}
