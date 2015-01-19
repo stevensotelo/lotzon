@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  	<head>
+	  	<title>
+	    	{% block title %}
+	    	{% endblock %}
+	    </title>
+
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <meta name="author" content="Steven Sotelo">    
+
+	    <!-- Just for debugging purposes. Don't actually copy this line! -->
+	    <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+	    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	    <!--[if lt IE 9]>
+	      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+	    <![endif]-->
+
+		{% load static from staticfiles %}
+	    <link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+		<link rel="stylesheet" href="{% static "css/bootstrap-theme.css" %}">
+		<link rel="shortcut icon" href="{% static "media/favicon.png" %}">
+		<link rel="stylesheet" href="{% static "css/main.css" %}">
+	</head>
+  	<body ng-app="ubicaApp">
+	    <!--[if lt IE 7]>
+	    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+	    <![endif]-->
+	    <!-- Add your site or application content here -->
+	    <div class="site-wrapper">
+	      <div class="site-wrapper-inner">
+	        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	          <div class="container">
+	            <div class="navbar-header">
+	              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	              <span class="sr-only">Toggle navigation</span>
+	              <span class="icon-bar"></span>
+	              <span class="icon-bar"></span>
+	              <span class="icon-bar"></span>
+	              </button>
+	              <a class="navbar-brand" href="#">Lotzon</a>
+	            </div>
+	            <div id="navbar" class="navbar-collapse collapse">
+	              <ul class="nav navbar-nav masthead-nav">
+	                <li><a href="#places">Places</a></li>                
+	              </ul>
+	            </div>
+	          </div>
+	        </nav>
+	        <div class="container cover-container">          
+	          <div class="inner cover" ng-view="">
+	          	{% block content %}
+	    		{% endblock %}
+	          </div>
+	          <div class="mastfoot">
+	            <div class="inner">
+	              <p> Dev by <a href="https://twitter.com/stevensotelo">@stevensotelo</a>.</p>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	    
+	    <!-- general -->
+	    <script src="{% static "scripts/jquery.js" %}"></script>
+	    <script src="{% static "scripts/bootstrap.js" %}"></script>
+	    <script src="{% static "scripts/angular.js" %}"></script>
+	    <!-- endgeneral -->
+
+	    <!-- angular -->
+	    <script src="{% static "scripts/app.js" %}"></script>
+	    <!-- endangular -->
+
+	    {% block scripts %}
+	    {% endblock %}
+	</body>
+</html>
