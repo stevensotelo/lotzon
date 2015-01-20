@@ -44,6 +44,7 @@ body {
 .site-wrapper-inner {
   display: table-cell;
   vertical-align: top;
+  width: 100%;
 }
 .cover-container {
   margin-right: auto;
@@ -142,6 +143,7 @@ body {
   /* Start the vertical centering */
   .site-wrapper-inner {
     vertical-align: middle;
+    width: 100%;
   }
   /* Handle the widths */
   .masthead,
@@ -155,12 +157,13 @@ body {
   .masthead,
   .mastfoot,
   .cover-container {
-    width: 700px;
+    width: 100%;
   }
 }
 
 /* Map */
 #map_canvas{
   width:100%; 
-  height:100%
+  height:200px;
+  min-height: auto;
 }
