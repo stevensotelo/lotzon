@@ -32,6 +32,8 @@ body {
 body {
   color: #fff;
   text-align: center;
+  margin: 0;
+  padding: 0;
 }
 
 /* Extra markup and styles for table-esque vertical and horizontal centering */
@@ -163,7 +165,8 @@ body {
 
 /* Map */
 #map_canvas{
+  margin:0;
+  padding:0;
   width:100%; 
-  height:200px;
-  min-height: auto;
+  height:200px;  
 }
