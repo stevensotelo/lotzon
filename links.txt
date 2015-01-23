@@ -1,0 +1,6 @@
+#mongo with django
+
+https://django-mongodb-engine.readthedocs.org/en/latest/
+https://django-mongodb-engine.readthedocs.org/en/latest/tutorial.html
+https://django-mongodb-engine.readthedocs.org/en/latest/reference/settings.html
+http://api.mongodb.org/python/current/api/pymongo/connection.html
