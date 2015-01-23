@@ -9,3 +9,11 @@ http://api.mongodb.org/python/current/api/pymongo/connection.html
 pip install git+https://github.com/django-nonrel/django@nonrel-1.5
 pip install git+https://github.com/django-nonrel/djangotoolbox
 pip install git+https://github.com/django-nonrel/mongodb-engine
+
+#forms django
+https://docs.djangoproject.com/en/1.7/topics/forms/modelforms/
+https://docs.djangoproject.com/en/1.7/ref/forms/api/
+https://docs.djangoproject.com/en/1.7/intro/tutorial04/
+
+#files
+https://docs.djangoproject.com/en/1.7/topics/http/file-uploads/
