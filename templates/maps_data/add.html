@@ -1,0 +1,21 @@
+{% extends "lotzon/base.html" %}
+
+{% block title %}Maps Data{% endblock %}
+
+{% block content %}
+
+    <h1>Add Map</h1>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    <form action="{% url 'maps_data:add' %}" method="post">
+        {% csrf_token %}
+        {{ map.as_p }}
+        <p>
+			<button type="submit" class="btn btn-default">Submit</button>
+		</p>
+    </form>
+
+{% endblock %}
+
+{% block scripts %}
+	
+{% endblock %}

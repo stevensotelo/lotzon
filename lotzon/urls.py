@@ -10,7 +10,7 @@ urlpatterns = patterns('',
 	#url(r'^$', 'lotzon.views.index', name='index'),
     #Home
     #url(r'^home/', include('home.urls')),
-    url(r'^$', include('home.urls')),
+    url(r'^$', include('home.urls',namespace="home")),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^maps/data', include('maps_data.urls')),
+    url(r'^maps/data/', include('maps_data.urls',namespace="maps_data")),
 )

@@ -25,11 +25,7 @@
 		<link rel="shortcut icon" href="{% static "lotzon/media/favicon.png" %}">
 		<link rel="stylesheet" href="{% static "lotzon/css/main.css" %}">
 	</head>
-  	<body ng-app="lotzonApp">
-	    <!--[if lt IE 7]>
-	    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-	    <![endif]-->
-	    <!-- Add your site or application content here -->
+  	<body ng-app="lotzonApp">	    
 	    <div class="site-wrapper">
             <div class="site-wrapper-inner">
 	           <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -41,19 +37,17 @@
 	                           <span class="icon-bar"></span>
 	                           <span class="icon-bar"></span>
 	                       </button>
-	                       <a class="navbar-brand" href="#">Lotzon</a>
+	                       <a class="navbar-brand" href="/">Lotzon</a>
 	                   </div>
                        <div id="navbar" class="navbar-collapse collapse">
                            <ul class="nav navbar-nav masthead-nav">
-                               <li><a href="#places">Places</a></li>
                                <li><a href="/maps/data">Data</a></li>
                            </ul>
 	                   </div>
 	               </div>
 	           </nav>
 	           <div class="container cover-container">          
-	               <div class="inner cover" ng-view="">
-	          	        <div id="map_canvas"></div>
+	               <div class="inner cover" ng-view="">	          	       
                         {% block content %}
                         {% endblock %}
 	               </div>
@@ -71,29 +65,7 @@
 	    <script type="text/javascript" src="{% static "lotzon/scripts/bootstrap.js" %}"></script>
 	    <!-- <script type="text/javascript" src="{% static "scripts/angular.js" %}"></script>
 	    <!-- endgeneral -->
-        <!--
-	    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBFM01lHIcwMPR5pisDs5KfHqUqA1eglXY&sensor=FALSE">
-    	</script>
-    	<script type="text/javascript"> 
-    		var mapOptions;   
-    		var map;		
-      		function initialize() {
-        		mapOptions = {
-	          		center: new google.maps.LatLng(-34.397, 150.644),
-	          		zoom: 8,
-	          		mapTypeId: google.maps.MapTypeId.ROADMAP
-        		};
-        		map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
-        	}
-        	
-
-        	$(this).ready(function(){
-    			initialize();
-    			console.log(map);
-    		});
-      		
-        </script>
-        -->
+        
 	    <!-- angular -->
 	    <!-- endangular -->
 

@@ -1,0 +1,22 @@
+{% extends "lotzon/base.html" %}
+
+{% block title %}Maps Data{% endblock %}
+
+{% block content %}
+
+    {% if all_maps %}
+        <ul>
+            {% for m in all_maps %}
+                <li><a href="{% url 'detail' m.id %}/">{{ m.title }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No maps are available.</p>
+    {% endif %}
+    <a href="{% url 'maps_data:add' %}">Add Map</a>
+
+{% endblock %}
+
+{% block scripts %}
+	
+{% endblock %}
