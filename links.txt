@@ -4,3 +4,8 @@ https://django-mongodb-engine.readthedocs.org/en/latest/
 https://django-mongodb-engine.readthedocs.org/en/latest/tutorial.html
 https://django-mongodb-engine.readthedocs.org/en/latest/reference/settings.html
 http://api.mongodb.org/python/current/api/pymongo/connection.html
+
+#install mongo with django
+pip install git+https://github.com/django-nonrel/django@nonrel-1.5
+pip install git+https://github.com/django-nonrel/djangotoolbox
+pip install git+https://github.com/django-nonrel/mongodb-engine

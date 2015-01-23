@@ -12,5 +12,5 @@ urlpatterns = patterns('',
     #url(r'^home/', include('home.urls')),
     url(r'^$', include('home.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^api/', include('api.urls')),
+    url(r'^maps/data', include('maps_data.urls')),
 )

@@ -37,7 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
-    'api',
+    'maps_data'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -59,14 +59,10 @@ WSGI_APPLICATION = 'lotzon.wsgi.application'
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+   'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
-    'default' : {
-      'ENGINE' : 'django_mongodb_engine',
-      'NAME' : 'maps'
-   }
+        'NAME': os.path.join(BASE_DIR, 'mapdb.sqlite3'),
+    }
 }
 
 # Internationalization
@@ -85,8 +81,7 @@ USE_TZ = True
 
 #Templates
 TEMPLATE_DIRS = (
-    BASE_DIR, 
-    BASE_DIR + '/lotzon/',
+    BASE_DIR + '/templates/',
 )
 
 
@@ -95,7 +90,6 @@ TEMPLATE_DIRS = (
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-    BASE_DIR,
-    BASE_DIR + "/lotzon/static/",
+STATICFILES_DIRS = ( 
+    BASE_DIR + "/static/",
 )
