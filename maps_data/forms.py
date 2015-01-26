@@ -1,9 +1,8 @@
-from django import forms
+from django.forms import forms, ModelForm
+
 from maps_data.models import Map
 
-class MapForm(forms.Form):    
+class MapForm(ModelForm):
     class Meta:
-        model = Map
-        #file = forms.FileField()
-        #fields = ['name', 'title', 'birth_date']
-        
+        model=Map
+        fields = ['title']
