@@ -37,7 +37,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
-    'maps_data'
+    'maps_data',
+    'rest_framework',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -93,3 +94,13 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = ( 
     BASE_DIR + "/static/",
 )
+
+#rest api
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}

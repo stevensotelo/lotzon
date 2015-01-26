@@ -5,10 +5,15 @@
 {% block content %}
 
     <h1>Detail</h1>
+    <div id="map"></div>
     
-
 {% endblock %}
 
 {% block scripts %}
-	
+	{% load staticfiles %}
+    <link rel="stylesheet" href="{% static "maps_data/css/map.css" %}">
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA5TdwFi644v7dRjvRrVtkyxxCcDH-LIGg&sensor=false">
+    </script>
+    <script type="text/javascript" src="{% static "maps_data/scripts/maps.js" %}"></script>
+    <script type="text/javascript" src="{% static "maps_data/scripts/detail.js" %}"></script>
 {% endblock %}
