@@ -17,3 +17,8 @@ https://docs.djangoproject.com/en/1.7/intro/tutorial04/
 
 #files
 https://docs.djangoproject.com/en/1.7/topics/http/file-uploads/
+
+
+# Windows
+d: && cd "Work\Source Code\lotzon" && .\Scripts\activate.bat && cd lotzon 
+d: && cd "Work\Source Code\lotzon" && .\Scripts\activate.bat && cd lotzon && python manage.py runserver 
