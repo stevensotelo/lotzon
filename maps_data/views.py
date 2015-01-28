@@ -50,14 +50,14 @@ def process_file(file, map):
             elif line == 5:
                 cell = float(fileline.split()[1])
             elif line == 6:
-                nodata = str(fileline.split()[1])
+                nodata = str(fileline.split()[1]).replace("b","").replace("'","")
         else:
             if line == 7:
-                file_map.write('"map":{\n"header":{"size":"' + str(cell) + '"},\n"content":{\n')
+                file_map.write('{\n"header":{"size":"' + str(cell) + '","rows":"' + str(rows) + '"},\n"content":[\n')
                 #header = Header(cols = cols, rows = rows, type_raster = 'LL', xcorner = xcorner, ycorner = ycorner, cellsize = cell, map = map)
                 #header.save()            
             lat = latitude(cell,number_row,ycorner,rows)
-            line_lat = '"lt":{"v":"' + str(lat) + '","ln":['
+            line_lat = '{"v":"' + str(lat) + '","d":['
             #file_map.write('"lt":{"v":"' + str(lat) + '","ln":[')
             #row = Row(number = number_row,latitude=lat, map = map)
             #row.save()
@@ -68,13 +68,18 @@ def process_file(file, map):
             start = -1
             end = 1
             line_lon = ""
+            lon_dictionary = dict()
             for i in range(len(data)):  
-                d = str(data[i])
+                d = str(data[i]).replace("b","").replace("'","")
                 #end to count
                 if (current != d) & (start != -1) :
                     lon_start = longitude(cell,start,xcorner)
-                    lon_end = longitude(cell,i-1,xcorner)
-                    line_lon += '["' + d +'","' + str(lon_start) + '","' + str(lon_end) + '"],'
+                    lon_end = longitude(cell,i-1,xcorner)                    
+                    if current in lon_dictionary:
+                        lon_dictionary[current]+='["' + str(lon_start) + '","' + str(lon_end) + '"],'
+                    else:
+                        lon_dictionary[current]='["' + str(lon_start) + '","' + str(lon_end) + '"],'
+                    #line_lon += '["' + d +'","' + str(lon_start) + '","' + str(lon_end) + '"],'
                     #file_map.write('["' + d +'","' + str(lon_start) + '","' + str(lon_end) + '"],')                      
                     start = -1
                     current = ""
@@ -85,22 +90,18 @@ def process_file(file, map):
                 elif d == nodata:
                     start = -1
                     current = ""
+            if lon_dictionary != dict():                
+                for key in lon_dictionary.keys():
+                    line_lon += '{"v":"' + key +'","c":['  + lon_dictionary[key][:len(lon_dictionary[key])-1] + ']},'
             if line_lon != "":
-                file_map.write(line_lat + line_lon + ']},\n')
+                file_map.write(line_lat + line_lon[:len(line_lon)-1] + ']}' + ("" if number_row==rows else ",") + '\n')
         line += 1
         if line > 7:
-            print ("Line: " + str(line) + " from: " + str(rows) + " " + str(((line-7)/rows)*100) + "%")        
-    file_map.write('\n}}')
+            print ("Line: " + str(number_row) + " from: " + str(rows) + " " + str((number_row/rows)*100) + "%")        
+    file_map.write(']}')
     file_map.close()
     
-    
-    
-    
-    
-    
-    
-    
-    
+'''   
 def analyze_section(row, line, nodata, cellsize, xcorner):
     col = 0
     data = line.split()
@@ -125,7 +126,7 @@ def analyze_section(row, line, nodata, cellsize, xcorner):
         elif float(data[i]) == nodata:
             start = -1
             current = ""
-        
+'''        
 
 def longitude(cellsize,col,xcorner):
     return (col*cellsize)+xcorner
