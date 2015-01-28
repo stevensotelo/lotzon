@@ -1,4 +1,5 @@
 from django.db import models
+from django.core import serializers
 
 class Map(models.Model):
     title = models.CharField(max_length=90)    
