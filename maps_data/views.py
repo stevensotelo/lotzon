@@ -2,11 +2,8 @@ from django.shortcuts import render,get_object_or_404,render_to_response
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 
-from maps_data.models import Map, Header, Row, Section
+from maps_data.models import Map
 from maps_data.forms import MapForm
-
-import re
-
 
 def index(request):
     return render(request, 'maps_data/index.html',{'all_maps':Map.objects.all()})

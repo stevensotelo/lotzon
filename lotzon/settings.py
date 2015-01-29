@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'home',
     'maps_data',
+    'maps_render',
 )
 
 MIDDLEWARE_CLASSES = (
