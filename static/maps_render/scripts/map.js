@@ -10,7 +10,7 @@ function initialize() {
     });
 
     var url= "http://localhost:8000/maps/data/get/" + $("#id").val();
-    $.getJSON( url, {})
+    $.getJSON(url)
     .done(function( data ) {
         var size = data.header.size;
         $.each( data.content, function( i, item ) {

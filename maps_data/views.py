@@ -27,7 +27,7 @@ def add(request):
     return render_to_response('maps_data/add.html',{'map':map },RequestContext(request))
 
 def process_file(file, map):
-    file_map = open("maps/" + map.id + ".json", 'w+')
+    file_map = open("maps/" + str(map.id) + ".json", 'w+')
     line = 1
     cols = 0
     rows = 0
@@ -55,7 +55,7 @@ def process_file(file, map):
                 nodata = str(fileline.split()[1]).replace("b","").replace("'","")
         else:
             if line == 7:
-                file_map.write('{\n"header":{"size":"' + str(cell) + '","rows":"' + str(rows) + '"},\n"content":[\n')
+                file_map.write('{"header":{"size":"' + str(cell) + '","rows":"' + str(rows) + '"},"content":[')
                 #header = Header(cols = cols, rows = rows, type_raster = 'LL', xcorner = xcorner, ycorner = ycorner, cellsize = cell, map = map)
                 #header.save()            
             lat = latitude(cell,number_row,ycorner,rows)
@@ -96,10 +96,10 @@ def process_file(file, map):
                 for key in lon_dictionary.keys():
                     line_lon += '{"v":"' + key +'","c":['  + lon_dictionary[key][:len(lon_dictionary[key])-1] + ']},'
             if line_lon != "":
-                file_map.write(line_lat + line_lon[:len(line_lon)-1] + ']}' + ("" if number_row==rows else ",") + '\n')
+                file_map.write(line_lat + line_lon[:len(line_lon)-1] + ']}' + ("" if (number_row-1)==rows else ",") )
         line += 1
         if line > 7:
-            print ("Line: " + str(number_row) + " from: " + str(rows) + " " + str((number_row/rows)*100) + "%")        
+            print ("Line: " + str(number_row-1) + " from: " + str(rows) + " " + str(((number_row-1)/rows)*100) + "%")        
     file_map.write(']}')
     file_map.close()
     
