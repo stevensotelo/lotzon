@@ -1,15 +1,20 @@
 from django.shortcuts import render,get_object_or_404,render_to_response
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,HttpResponse
 from django.template import RequestContext
 
 from maps_data.models import Map
 from maps_data.forms import MapForm
 
+import json
+
 def index(request):
     return render(request, 'maps_data/index.html',{'all_maps':Map.objects.all()})
 
-def detail(request, id):
-    return render(request, 'maps_data/detail.html', { 'map' : get_object_or_404(Map, pk=id)})
+def get(request, id):
+    response = HttpResponse(open('maps/' + str(id) + '.json', 'r'), content_type='application/json')
+    response.__setitem__("Content-type", "application/json")
+    response["Access-Control-Allow-Origin"] = "*"
+    return response
 
 def add(request):
     map = MapForm()
@@ -22,7 +27,7 @@ def add(request):
     return render_to_response('maps_data/add.html',{'map':map },RequestContext(request))
 
 def process_file(file, map):
-    file_map = open("maps/" + map.title + ".json", 'w+')
+    file_map = open("maps/" + map.id + ".json", 'w+')
     line = 1
     cols = 0
     rows = 0
