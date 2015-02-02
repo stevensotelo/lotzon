@@ -40,6 +40,8 @@ def process_file(file, map):
     line_lat = ""
     line_lon = ""
     return_line = "\n"
+    content_map = ""
+    count_sections = 0
     for fileline in file:
         if line < 7:
             #if line == 1:
@@ -58,8 +60,9 @@ def process_file(file, map):
             data = fileline.split()
             number_row += 1
             print (number_row)
-            if line == 7:
-                file_map.write('{"header":{"size":"' + str(cell) + '","rows":"' + str(rows) + '"},"content":[')
+            if line == 7:                
+                #file_map.write()
+                content_map += '{"content":['
                 cols = len(data)
             lat = latitude(cell,number_row,ycorner,rows)
             line_lat = '{"v":"' + str(lat) + '","d":['                        
@@ -75,8 +78,10 @@ def process_file(file, map):
                     lon_end = longitude(cell,i-1,xcorner)                    
                     if current in lon_dictionary:
                         lon_dictionary[current]+='["' + str(lon_start) + '","' + str(lon_end) + '"],'
+                        count_sections += 1
                     else:
-                        lon_dictionary[current]='["' + str(lon_start) + '","' + str(lon_end) + '"],'                      
+                        lon_dictionary[current]='["' + str(lon_start) + '","' + str(lon_end) + '"],'
+                        count_sections += 1
                     start = -1
                     current = ""
                 if (start == -1) & (d != nodata) & (current != d):
@@ -89,11 +94,12 @@ def process_file(file, map):
                 for key in lon_dictionary.keys():
                     line_lon += '{"v":"' + key +'","c":['  + lon_dictionary[key][:len(lon_dictionary[key])-1] + ']},'
             if line_lon != "":
-                file_map.write(line_lat + line_lon[:len(line_lon)-1] + ']}' + ("" if (number_row)==rows else ",")  + return_line)
+                #file_map.write(line_lat + line_lon[:len(line_lon)-1] + ']}' + ("" if (number_row)==rows else ",")  + return_line)
+                content_map += line_lat + line_lon[:len(line_lon)-1] + ']}' + ("" if (number_row)==rows else ",")  + return_line
         line += 1
         if line > 7:
             print ("Line: " + str(number_row) + " from: " + str(rows) + " " + str((number_row/rows)*100) + "%")        
-    file_map.write(']}')
+    file_map.write(content_map[:len(content_map)-2] + '],\n"header":{"size":"' + str(cell)  + '","rows":"' + str(rows) + '","sections":"' + str(count_sections) + '"}}')
     file_map.close()
 
 def longitude(cellsize,col,xcorner):
