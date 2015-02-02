@@ -16,6 +16,7 @@ function initialize() {
     var lat_end=null;
     $.getJSON(url)
     .done(function( data ) {
+        console.log(data);
         size = data.header.size;
         var l=0;
         $.each( data.content, function( i, item ) {            

@@ -59,9 +59,7 @@ def process_file(file, map):
         else:
             data = fileline.split()
             number_row += 1
-            print (number_row)
-            if line == 7:                
-                #file_map.write()
+            if line == 7:    
                 content_map += '{"content":['
                 cols = len(data)
             lat = latitude(cell,number_row,ycorner,rows)
@@ -94,7 +92,6 @@ def process_file(file, map):
                 for key in lon_dictionary.keys():
                     line_lon += '{"v":"' + key +'","c":['  + lon_dictionary[key][:len(lon_dictionary[key])-1] + ']},'
             if line_lon != "":
-                #file_map.write(line_lat + line_lon[:len(line_lon)-1] + ']}' + ("" if (number_row)==rows else ",")  + return_line)
                 content_map += line_lat + line_lon[:len(line_lon)-1] + ']}' + ("" if (number_row)==rows else ",")  + return_line
         line += 1
         if line > 7:
