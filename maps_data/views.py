@@ -1,20 +1,21 @@
 from django.shortcuts import render,get_object_or_404,render_to_response
-from django.http import HttpResponseRedirect,HttpResponse
+from django.http import HttpResponseRedirect,HttpResponse,StreamingHttpResponse
 from django.template import RequestContext
 
 from maps_data.models import Map
 from maps_data.forms import MapForm
 
-import json
+import zipfile
 
 def index(request):
     return render(request, 'maps_data/index.html',{'all_maps':Map.objects.all()})
 
 def get(request, id):
-    response = HttpResponse(open('maps/' + str(id) + '.json', 'r'), content_type='application/json')
-    response.__setitem__("Content-type", "application/json")
+    #response = HttpResponse(open('maps/' + str(id) + '.json', 'r'), content_type='application/json')
+    response = HttpResponse(open('maps/' + str(id) + '.zip', 'rb'), content_type='application/zip')
     response["Access-Control-Allow-Origin"] = "*"
     return response
+
 
 def add(request):
     map = MapForm()
@@ -27,7 +28,9 @@ def add(request):
     return render_to_response('maps_data/add.html',{'map':map },RequestContext(request))
 
 def process_file(file, map):
-    file_map = open("maps/" + str(map.id) + ".json", 'w+')
+    file_directory = "maps/"
+    file_name = file_directory + str(map.id) + ".json"
+    file_map = open(file_name, 'w+')
     line = 1
     cols = 0
     rows = 0
@@ -98,6 +101,11 @@ def process_file(file, map):
             print ("Line: " + str(number_row) + " from: " + str(rows) + " " + str((number_row/rows)*100) + "%")        
     file_map.write(content_map[:len(content_map)-2] + '],\n"header":{"size":"' + str(cell)  + '","rows":"' + str(rows) + '","sections":"' + str(count_sections) + '"}}')
     file_map.close()
+    #compress file
+    zf = zipfile.ZipFile(file_directory + str(map.id) + ".zip", 'w', zipfile.ZIP_DEFLATED)
+    zf.write(file_name,str(map.id) + ".json")
+    zf.close()
+    
 
 def longitude(cellsize,col,xcorner):
     return (col*cellsize)+xcorner

@@ -22,3 +22,12 @@ https://docs.djangoproject.com/en/1.7/topics/http/file-uploads/
 # Windows
 d: && cd "Work\Source Code\lotzon" && .\Scripts\activate.bat && cd lotzon 
 d: && cd "Work\Source Code\lotzon" && .\Scripts\activate.bat && cd lotzon && python manage.py runserver 
+
+
+#zip files javascript
+http://stuk.github.io/jszip/documentation/limitations.html
+https://github.com/stuk/jszip-utils
+https://github.com/Stuk/jszip
+
+#zip files django
+https://djangosnippets.org/snippets/365/
