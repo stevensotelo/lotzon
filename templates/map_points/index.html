@@ -1,0 +1,28 @@
+{% extends "lotzon/base.html" %}
+
+{% block title %}Maps Layers{% endblock %}
+
+{% block content %}
+    <h1>Points</h1>    
+    {% if layers %}
+        <div class="table-responsive">
+            <table class="table table-condensed">
+                {% for f in files %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'maps_render:view' l.id  %}">{{ l.title }}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% else %}
+        <p>No files are available.</p>
+    {% endif %}
+    <a href="{% url 'map_points:add' %}">Add Points</a>
+
+{% endblock %}
+
+{% block scripts %}
+	
+{% endblock %}

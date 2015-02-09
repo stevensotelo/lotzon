@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+# Path for maps
+MAPS_BASE = os.path.join(BASE_DIR, 'maps_data')
+MAPS_LAYER = os.path.join(MAPS_BASE, 'layer')
+MAPS_POINTS = os.path.join(MAPS_BASE, 'points')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -35,11 +39,12 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'home',
-    'maps_data',
-    'maps_render',
+    'django.contrib.staticfiles',    
     'corsheaders',
+    'home',    
+    'map_layer',
+    'map_points',
+    'maps_render',
 )
 
 MIDDLEWARE_CLASSES = (
