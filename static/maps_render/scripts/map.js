@@ -33,14 +33,14 @@ MAPS.tools = {
     centerMap: function (location) {
         MAPS.vars.centerPoint = location;
         MAPS.vars.map.setCenter(MAPS.vars.centerPoint);
-    }    
+    }
 };
 
 MAPS.points = {
     addMarket: function (location) {
         MAPS.vars.markets.push(new google.maps.Marker({
             map: MAPS.vars.map,
-            position: position
+            position: location
         }));
     },
     clearMarket: function () {
@@ -50,7 +50,7 @@ MAPS.points = {
     },
     centerMapWithMark: function (location) {
         MAPS.tools.centerMap(location);
-        MAPS.tools.addMarket(MAPS.vars.centerPoint);
+        MAPS.points.addMarket(MAPS.vars.centerPoint);
     },
     addInfoWindow: function (marker, message) {
         MAPS.vars.info[marker] = new google.maps.InfoWindow({ content: message });
@@ -59,8 +59,8 @@ MAPS.points = {
         });
     },
     addMarketWithInfoWindow: function (location, message) {
-        MAPS.tools.addMarket(location);        
-        MAPS.tools.addInfoWindow(MAPS.vars.markets.length - 1, message);
+        MAPS.points.addMarket(location);        
+        MAPS.points.addInfoWindow(MAPS.vars.markets.length - 1, message);
     }
 };
 
@@ -75,6 +75,11 @@ MAPS.draw = {
                     map: MAPS.vars.map,
                     bounds: new google.maps.LatLngBounds(locationStart,locationEnd)
                 }));
+    },
+    clearLayer : function(){
+        for (var i = 0; i < MAPS.vars.rectangles.length; i++) 
+            MAPS.vars.rectangles[i].setMap(null);
+        MAPS.vars.rectangles = [];
     }
 };
 

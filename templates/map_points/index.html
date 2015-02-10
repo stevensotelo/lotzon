@@ -4,13 +4,13 @@
 
 {% block content %}
     <h1>Points</h1>    
-    {% if layers %}
+    {% if files %}
         <div class="table-responsive">
             <table class="table table-condensed">
                 {% for f in files %}
                     <tr>
                         <td>
-                            <a href="{% url 'maps_render:view' l.id  %}">{{ l.title }}</a>
+                            <a href="{% url 'maps_render:index'  %}">{{ f.name }}</a>
                         </td>
                     </tr>
                 {% endfor %}

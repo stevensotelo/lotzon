@@ -3,8 +3,31 @@
 {% block title %}Maps Data{% endblock %}
 
 {% block content %}
+    {% if layers %}        
+        <div class="form-group">
+            <label for="cboLayers">Layer:</label>
+            <div>
+                <select id="cboLayers" class="form-control">
+                    {% for l in layers %}
+                        <option value="{{ l.id }}">{{l.title}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    {% endif %}
+    {% if points %}
+        <div class="form-group">
+            <label for="cboPoints">Points</label>
+            <div>
+                <select id="cboPoints" class="form-control">
+                    {% for p in points %}
+                        <option value="{{ p.id }}">{{p.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    {% endif %}
     <div id="map-canvas"></div>
-    <input type="hidden" id="id" name="id" value="{{ id }}"/>
 {% endblock %}
 
 {% block scripts %}

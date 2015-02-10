@@ -1,6 +1,8 @@
-from django.shortcuts import render
-
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+from map_layer.models import Layer
+from map_points.models import FilePoints
 # Create your views here.
 
-def view(request,id):
-    return render(request, 'maps_render/view.html',{'id':id})
+def index(request):
+    return render_to_response('maps_render/index.html',{'layers':Layer.objects.all(),'points':FilePoints.objects.all() },RequestContext(request))
