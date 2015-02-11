@@ -17,6 +17,7 @@ html, body {
   height: 100%;
   background-color: #333;
 }
+
 body {
   color: #fff;
   text-align: center;
@@ -41,6 +42,7 @@ body {
   height: 100%; /* For at least Firefox */
   min-height: 100%;
 }
+
 .site-wrapper-inner {
   display: table-cell;
   vertical-align: top;
@@ -137,4 +139,4 @@ body {
   /* Handle the widths */
 .masthead,.mastfoot,.cover-container {
     width: 100%; /* Must be percentage or pixels for horizontal alignment */
-  }
+}
