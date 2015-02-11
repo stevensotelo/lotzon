@@ -67,7 +67,19 @@ MAPS.points = {
     addInfoWindow: function (marker, message) {
         MAPS.vars.info[marker] = new google.maps.InfoWindow({ content: message });
         google.maps.event.addListener(MAPS.vars.markets[marker], 'click', function () {
-            MAPS.vars.info[marker].open(MAPS.vars.map, MAPS.vars.markets[marker]);
+            if(MAPS.vars.markets[marker].getAnimation() == null)
+            {
+                MAPS.vars.info[marker].open(MAPS.vars.map, MAPS.vars.markets[marker]);
+                MAPS.vars.markets[marker].setAnimation(google.maps.Animation.BOUNCE);
+            }
+            else
+            {
+                MAPS.vars.info[marker].close();
+                MAPS.vars.markets[marker].setAnimation(null);
+            }
+            /*MAPS.vars.info[marker].open(MAPS.vars.map, MAPS.vars.markets[marker]);
+            MAPS.vars.markets[marker].setAnimation(MAPS.vars.markets[marker].getAnimation() != null ? null : google.maps.Animation.BOUNCE);*/
+            
         });
     },    
     addMarketWithInfoWindow: function (location, message) {
