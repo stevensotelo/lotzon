@@ -30,6 +30,7 @@ self.addEventListener('message',
                         break;
                     }*/
                     //console.log("sections: " + m + " from: " + data.header.sections + " " + ((m/data.header.sections)*100) + "%");
+                    console.log(itemCoor);
                     self.postMessage({'value':itemValue.v,
                                       'lat_start':lat_start,'lat_end':lat_end,
                                       'lon_start':itemCoor[0],'lon_end':itemCoor[1]});
