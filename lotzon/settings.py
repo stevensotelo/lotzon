@@ -44,7 +44,6 @@ INSTALLED_APPS = (
     'home',    
     'map_layer',
     'map_points',
-    'maps_render',
 )
 
 MIDDLEWARE_CLASSES = (

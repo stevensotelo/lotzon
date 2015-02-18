@@ -6,5 +6,4 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^map/layer/', include('map_layer.urls',namespace="map_layer")),
     url(r'^map/points/', include('map_points.urls',namespace="map_points")),
-    url(r'^maps/render/', include('maps_render.urls',namespace="maps_render")),
 )

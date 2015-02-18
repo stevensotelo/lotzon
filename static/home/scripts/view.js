@@ -4,14 +4,19 @@ $(this).ready(function(){
     MAPS.tools.init('map-canvas');
     $("#cboLayers").change(loadLayer);
     $("#cboPoints").change(loadPoints);
-    loadLayer();
-    loadPoints();
+    
+    $(".content-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
 });
 
 function loadLayer(){
     if($("#cboLayers").val() !== undefined)
     {
         MAPS.draw.clearLayer();
+        if(MAPS.vars.grandient==[])
+            MAPS.tools.generateGradient(100);
         JSZipUtils.getBinaryContent(URL_MAPS_DATA + "layer/get/" + $("#cboLayers").val(), function(err, data) {
             if(err) throw err; // or handle err
             var zip = new JSZip(data);

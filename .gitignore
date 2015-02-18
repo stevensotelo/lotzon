@@ -1,6 +1,17 @@
+# Python
+
 *.pyc
 *.pyo
 *.sqlite3
 *.asc
 *.json
 *.asc
+
+# Resources
+
+/resources/*.asc
+
+# Data uploaded
+
+/maps_data/layer/*.*
+/maps_data/points/*.*
