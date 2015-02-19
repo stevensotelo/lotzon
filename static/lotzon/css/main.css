@@ -40,7 +40,7 @@ body {
 #content-sidebar{
     z-index: 1000;
     position: fixed;    
-    width: 250px;
+    width: 0;
     height: 100%;
     margin-right: 0;
     right: 0;
@@ -55,5 +55,6 @@ body {
 
 
 #wrapper.toggled #content-sidebar{
-    margin-right: 250px;
+    width: 250px;
+    
 }

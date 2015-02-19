@@ -10,6 +10,7 @@
 # Resources
 
 /resources/*.asc
+/resources/*.csv
 
 # Data uploaded
 
