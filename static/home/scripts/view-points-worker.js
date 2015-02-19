@@ -6,7 +6,9 @@ self.addEventListener('message',
                             'id':data[i].i,
                             'lat':data[i].lt,
                             'lon':data[i].ln,
-                            'text':data[i].t});
+                            'text':data[i].t,
+                            'value':data[i].v,
+                            'final':(i==(data.length-1)?true:false)});
             
         }
 },false);

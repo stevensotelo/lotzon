@@ -11,7 +11,9 @@ MAPS.vars = {
     rectangles: [],
     info: [],
     grandient : [],
-    pathIcons: '/static/maps_render/images/'
+    pathIcons: '/static/home/images/',
+    layerPoints: [],
+    layerHeatMap: null,
 };
 
 // General functions about of google maps
@@ -104,6 +106,18 @@ MAPS.points = {
     addMarketWithInfoWindowTitleImage: function (location, message, title, image) {
         MAPS.points.addMarketWithTitleImage(location,title,image);        
         MAPS.points.addInfoWindow(MAPS.vars.markets.length - 1, message);
+    }
+};
+
+MAPS.layer = {
+    addPoint: function (location) {
+        MAPS.vars.layerPoints.push(location);
+    },
+    setLayer:function(){
+        MAPS.vars.layerHeatMap = new google.maps.visualization.HeatmapLayer({ data: MAPS.vars.layerPoints });
+        //MAPS.vars.layerHeatMap = new google.maps.visualization.HeatmapLayer({ data: new google.maps.MVCArray(MAPS.vars.layerPoints) });
+        MAPS.vars.layerHeatMap.setMap(MAPS.vars.map);
+        MAPS.vars.layerHeatMap.set('radius',10);
     }
 };
 

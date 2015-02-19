@@ -9,6 +9,8 @@ $(this).ready(function(){
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
+    
+     loadPoints();
 });
 
 function loadLayer(){
@@ -22,7 +24,7 @@ function loadLayer(){
             var zip = new JSZip(data);
             var text = zip.file($("#cboLayers").val() + ".json").asText();
 
-            var worker = new Worker('/static/maps_render/scripts/view-layer-worker.js');
+            var worker = new Worker('/static/home/scripts/view-layer-worker.js');
 
             worker.addEventListener('message', function(e) {
                 var c=e.data;
@@ -36,6 +38,7 @@ function loadLayer(){
 }
 
 function loadPoints(){
+    var num=0;
     if($("#cboPoints").val() !== undefined)
     {
         MAPS.points.clearMarket();
@@ -43,13 +46,42 @@ function loadPoints(){
             if(err) throw err; // or handle err
             var zip = new JSZip(data);
             var text = zip.file($("#cboPoints").val() + ".json").asText();        
-            var worker = new Worker('/static/maps_render/scripts/view-points-worker.js');
+            var worker = new Worker('/static/home/scripts/view-points-worker.js');
 
             worker.addEventListener('message', function(e) {  
+                num+=1;
+                console.log(num + " " + e.data.final);                
+                MAPS.layer.addPoint({location: MAPS.tools.coordenates2Location(e.data.lon,e.data.lat), weight: e.data.value});
+                if(e.data.final)
+                {
+                    console.log('entro');
+                    MAPS.layer.setLayer();
+                }
+            }, false);
+            worker.postMessage({'points':JSON.parse(text)});
+        });
+    }    
+}
+
+/**
+function loadPoints(){
+    var num=0;
+    if($("#cboPoints").val() !== undefined)
+    {
+        MAPS.points.clearMarket();
+        JSZipUtils.getBinaryContent(URL_MAPS_DATA + "points/get/" + $("#cboPoints").val(), function(err, data) {        
+            if(err) throw err; // or handle err
+            var zip = new JSZip(data);
+            var text = zip.file($("#cboPoints").val() + ".json").asText();        
+            var worker = new Worker('/static/home/scripts/view-points-worker.js');
+
+            worker.addEventListener('message', function(e) {  
+                num+=1;
+                console.log(num);
                 var content =  '<div class="maps"><p>' + e.data.text + '</p></div>';
                 MAPS.points.addMarketWithInfoWindowTitleImage(MAPS.tools.coordenates2Location(e.data.lon,e.data.lat), content, e.data.id,MAPS.vars.pathIcons + e.data.group + '.png');
             }, false);
             worker.postMessage({'points':JSON.parse(text)});
         });
     }    
-}
+}*/
