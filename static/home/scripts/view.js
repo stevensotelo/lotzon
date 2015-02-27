@@ -37,6 +37,7 @@ function loadLayer(){
     }
 }
 
+/*
 function loadPoints(){
     var num=0;
     if($("#cboPoints").val() !== undefined)
@@ -50,20 +51,24 @@ function loadPoints(){
 
             worker.addEventListener('message', function(e) {  
                 num+=1;
-                console.log(num + " " + e.data.final);                
-                MAPS.layer.addPoint({location: MAPS.tools.coordenates2Location(e.data.lon,e.data.lat), weight: e.data.value});
-                if(e.data.final)
-                {
-                    console.log('entro');
-                    MAPS.layer.setLayer();
+                //console.log(num + " " + e.data.final + " " + e.data.value);                 
+                var location=MAPS.tools.coordenates2Location(e.data.lon,e.data.lat);
+                /*for(var k=0;k<e.data.value;k++)
+                {                    
+                    MAPS.layer.addPoint(location);
+                    location=MAPS.tools.coordenates2Location(e.data.lon,e.data.lat);
                 }
+                MAPS.layer.addPoint(location);
+                //MAPS.layer.addPoint({location: location, weight: e.data.value});
+                if(e.data.final)
+                    MAPS.layer.setLayer();
             }, false);
             worker.postMessage({'points':JSON.parse(text)});
         });
     }    
 }
+*/
 
-/**
 function loadPoints(){
     var num=0;
     if($("#cboPoints").val() !== undefined)
@@ -84,4 +89,4 @@ function loadPoints(){
             worker.postMessage({'points':JSON.parse(text)});
         });
     }    
-}*/
+}

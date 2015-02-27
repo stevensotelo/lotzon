@@ -4,12 +4,17 @@ from django.template import RequestContext
 from django.conf import settings
 from django.views.decorators.csrf import csrf_protect
 
+from django.views.generic.base import View
+from django.core import serializers
+
 from map_points.models import FilePoints
 from map_points.forms import FilePointsForm
 
 import zipfile
 import os
 import re
+import json
+
 
 def index(request):
     return render(request, 'map_points/index.html',{'files':FilePoints.objects.all()})
@@ -44,7 +49,7 @@ def process_points(file, file_points):
     for l in file:
         line=str(l).replace("b'",'').replace("\\r",'').replace("\\n'",'')
         if line != "":
-            vals = re.split("\;",str(line).lower())
+            vals = re.split("\|",str(line).lower())
             if number_line == 0:
                 group = vals.index("group")
                 id = vals.index("id")
@@ -61,4 +66,3 @@ def process_points(file, file_points):
     zf = zipfile.ZipFile(os.path.join(settings.MAPS_POINTS, str(file_points.id) + '.zip'), 'w', zipfile.ZIP_DEFLATED)
     zf.write(file_name,str(file_points.id) + ".json")
     zf.close()
-            

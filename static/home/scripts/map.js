@@ -114,10 +114,11 @@ MAPS.layer = {
         MAPS.vars.layerPoints.push(location);
     },
     setLayer:function(){
-        MAPS.vars.layerHeatMap = new google.maps.visualization.HeatmapLayer({ data: MAPS.vars.layerPoints });
-        //MAPS.vars.layerHeatMap = new google.maps.visualization.HeatmapLayer({ data: new google.maps.MVCArray(MAPS.vars.layerPoints) });
+        //MAPS.vars.layerHeatMap = new google.maps.visualization.HeatmapLayer({ data: MAPS.vars.layerPoints });
+        MAPS.vars.layerHeatMap = new google.maps.visualization.HeatmapLayer({ data: new google.maps.MVCArray(MAPS.vars.layerPoints) });
         MAPS.vars.layerHeatMap.setMap(MAPS.vars.map);
-        MAPS.vars.layerHeatMap.set('radius',10);
+        MAPS.vars.layerHeatMap.set('radius',1);
+        MAPS.vars.layerHeatMap.set('dissipating',false);
     }
 };
 
