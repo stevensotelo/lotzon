@@ -1,0 +1,15 @@
+{% extends "lotzon/base.html" %}
+
+{% block title %}Lotzon{% endblock %}
+
+{% block content %}
+   
+{% endblock %}
+
+{% block scripts %}
+    {% load staticfiles %}    
+    <script type="text/javascript" src="{% static "points/js/scripts/app.js" %}"></script>
+    <script type="text/javascript" src="{% static "points/js/scripts/services.js" %}"></script>
+    <script type="text/javascript" src="{% static "points/js/scripts/controllers.js" %}"></script>
+    <script type="text/javascript" src="{% static "points/js/scripts/routes.js" %}"></script>
+{% endblock %}

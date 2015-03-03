@@ -1,0 +1,16 @@
+<h1>Points</h1>
+<div class="table-responsive">
+    <table class="table table-condensed" >
+        <tr ng-repeat="item in data">
+            <td>
+                <button type="button" class="btn btn-success btn-sm" ng-click="getById(item.pk)">Show</button>
+            </td>
+            <td>
+                {$ item.pk $} {$ item.fields.name $} 
+            </td>
+        </tr>
+    </table>
+</div>
+<a href="#/points/add" class="btn btn-primary btn-sm">
+  <span class="glyphicon glyphicon-plus"></span> Add Points
+</a>

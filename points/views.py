@@ -1,32 +1,39 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-
-from django.views.generic.base import View
+from django.conf import settings
 from django.core import serializers
+from django.http import HttpResponse
+from django.shortcuts import render
+from django.views.generic.base import View
 
 from points.models import Points
 
 import json
+import zipfile
+import os
+import re
+
 
 class PointsView(View):
     
     def get(self, request, *args, **kwargs):
         try:            
-            #http://localhost:8000/api/points/get/json/
+            #http://localhost:8000/api/points/json/
             format = self.kwargs['format']
             q = request.GET.get("q")
             data =[]
             if q is not None:
-                data = Points.objects.filter(name__contains = q)
+                response = HttpResponse(open(os.path.join(settings.MAPS_POINTS, str(q) + '.zip'), 'rb'), content_type='application/zip')
+                response["Access-Control-Allow-Origin"] = "*"
+                return response
             else:
                 data = Points.objects.all()          
             return HttpResponse(serializers.serialize(format, data), content_type='application/' + format)
         except Exception as e:
             return HttpResponse( json.dumps({"error" : str(e) }), content_type='application/' + format )
     
+    
     def post(self, request, *args, **kwargs):
         try:            
-            #http://localhost:8000/api/points/post/json/
+            #http://localhost:8000/api/points/json/
             format = self.kwargs['format']
             json_raw = request.body.decode(encoding='UTF-8')
             obj = json.loads(json_raw)            
@@ -48,4 +55,37 @@ class PointsView(View):
                 return HttpResponse(json.dumps({"message" : "The points entity don't exist"}), content_type='application/' + format)
         except ObjectDoesNotExist:
             return HttpResponse( json.dumps({"error" : str(e) }), content_type='application/' + format )
+
+
+def process_points(file, file_points):    
+    group = -1
+    id = -1
+    lt = -1
+    ln = -1
+    text = -1
+    value = -1
+    number_line = 0
+    file_name = os.path.join(settings.MAPS_POINTS, str(file_points.id) + '.json')
+    file_writer = open(file_name, 'w+')
+    content = ""
+    for l in file:
+        line=str(l).replace("b'",'').replace("\\r",'').replace("\\n'",'')
+        if line != "":
+            vals = re.split("\|",str(line).lower())
+            if number_line == 0:
+                group = vals.index("group")
+                id = vals.index("id")
+                lt = vals.index("latitude")
+                ln = vals.index("longitude")
+                text = vals.index("text")
+                value = vals.index("value")
+            else:
+                content += '{"g":"' + vals[group] + '","i":"' + vals[id] + '","lt":"' + vals[lt] + '","ln":"' + vals[ln] + '","t":"' + vals[text] +'","v":"' + vals[value] + '"},\n'
+        number_line += 1
+    file_writer.write('{"points":[' + content[:len(content)-2] + '],\n"header":{"count":"' + str(number_line)  + '"}}')
+    file_writer.close()
+    #compress file
+    zf = zipfile.ZipFile(os.path.join(settings.MAPS_POINTS, str(file_points.id) + '.zip'), 'w', zipfile.ZIP_DEFLATED)
+    zf.write(file_name,str(file_points.id) + ".json")
+    zf.close()
         
