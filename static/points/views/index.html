@@ -1,12 +1,26 @@
 <h1>Points</h1>
 <div class="table-responsive">
     <table class="table table-condensed" >
+        <tr>
+            <th>
+                Heat
+            </th>
+            <th>
+                Points
+            </th>
+            <th>
+                Name
+            </th>
+        </tr>
         <tr ng-repeat="item in data">
             <td>
-                <button type="button" class="btn btn-success btn-sm" ng-click="getById(item.pk)">Show</button>
+                <button type="button" class="btn btn-xs" ng-click="getById(item.pk,'heat')">show</button>
             </td>
             <td>
-                {$ item.pk $} {$ item.fields.name $} 
+                <button type="button" class="btn btn-xs" ng-click="getById(item.pk,'point')">show</button>
+            </td>
+            <td>
+                {$ item.fields.name $} 
             </td>
         </tr>
     </table>

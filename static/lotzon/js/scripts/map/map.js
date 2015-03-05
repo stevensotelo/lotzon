@@ -11,7 +11,7 @@ MAPS.vars = {
     rectangles: [],
     info: [],
     grandient : [],
-    pathIcons: '/static/home/images/icons/',
+    pathIcons: '/static/lotzon/images/icons/',
     layerPoints: [],
     layerHeatMap: null,
 };
@@ -118,8 +118,8 @@ MAPS.layer = {
         //MAPS.vars.layerHeatMap = new google.maps.visualization.HeatmapLayer({ data: MAPS.vars.layerPoints });
         MAPS.vars.layerHeatMap = new google.maps.visualization.HeatmapLayer({ data: new google.maps.MVCArray(MAPS.vars.layerPoints) });
         MAPS.vars.layerHeatMap.setMap(MAPS.vars.map);
-        MAPS.vars.layerHeatMap.set('radius',20);
-        MAPS.vars.layerHeatMap.set('dissipating',true);
+        MAPS.vars.layerHeatMap.set('radius',typeof radius !== "undefined" ? radius : 1);
+        MAPS.vars.layerHeatMap.set('dissipating',typeof dissipating !== "undefined" ? dissipating : false);
     }
 };
 

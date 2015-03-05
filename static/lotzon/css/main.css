@@ -9,6 +9,10 @@ a:hover {
     /*color: #fff;*/
 }
 
+h1 {
+    text-align: center;
+}
+
 /*
  * Base structure
  */
@@ -20,8 +24,7 @@ html, body {
 }
 
 body {
-    color: #000;
-    text-align: center;
+    color: #000;    
     margin: 0;
     padding-top: 50px;
     padding-bottom: 50px;

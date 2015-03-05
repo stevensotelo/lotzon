@@ -34,13 +34,15 @@ class PointsView(View):
     def post(self, request, *args, **kwargs):
         try:            
             #http://localhost:8000/api/points/json/
-            format = self.kwargs['format']
-            json_raw = request.body.decode(encoding='UTF-8')
-            obj = json.loads(json_raw)            
-            entity = Points( name = obj["name"])
-            entity.save()
+            format = self.kwargs['format']            
+            json_raw = request.body.decode(encoding='UTF-8')            
+            obj = json.loads(json_raw) 
+            entity = Points( name = obj["model"]["name"])
+            model = entity.save()
+            process_points(request.FILES[obj["files"][0]["name"]],model)
             return HttpResponse(json.dumps({"message" : "OK"}), content_type='application/' + format)           
         except Exception as e:
+            print(e)
             return HttpResponse( json.dumps({"error" : str(e) }), content_type='application/' + format )
         
     def delete(self, request, *args, **kwargs):
@@ -69,6 +71,7 @@ def process_points(file, file_points):
     file_writer = open(file_name, 'w+')
     content = ""
     for l in file:
+        print(l)
         line=str(l).replace("b'",'').replace("\\r",'').replace("\\n'",'')
         if line != "":
             vals = re.split("\|",str(line).lower())

@@ -11,8 +11,7 @@ app.controller("PointsListCtrl", function($scope, $http, $dataFactory, $app)
             $scope.data = null; 
         });
     
-    $scope.getById=function(id) {        
-        num=1;
+    $scope.getById=function(id,type) {
         MAPS.draw.clearLayer();            
         JSZipUtils.getBinaryContent('http://localhost:8000/api/points/json?q=' + id, function(err, data) {
             if(err) throw err; // or handle err
@@ -20,18 +19,18 @@ app.controller("PointsListCtrl", function($scope, $http, $dataFactory, $app)
             var text = zip.file(id + ".json").asText();
             var worker = new Worker('/static/lotzon/js/scripts/map/view-points-worker.js');
             worker.addEventListener('message', function(e) {  
-                num+=1;
-                //console.log(num + " " + e.data.final + " " + e.data.value);                 
                 var location=MAPS.tools.coordenates2Location(e.data.lon,e.data.lat);
-                /*for(var k=0;k<e.data.value;k++)
-                {                    
+                if(type=='heat')
+                {
                     MAPS.layer.addPoint(location);
-                    location=MAPS.tools.coordenates2Location(e.data.lon,e.data.lat);
-                }*/
-                //MAPS.layer.addPoint(location);
-                MAPS.layer.addPoint({location: location, weight: e.data.value});
-                if(e.data.final)
-                    MAPS.layer.setLayer();
+                    //MAPS.layer.addPoint({location: location, weight: e.data.value});
+                    if(e.data.final)
+                        MAPS.layer.setLayer();
+                }
+                else if(type=='point'){
+                    var content =  '<div class="maps"><p>' + e.data.text + '</p></div>';
+                    MAPS.points.addMarketWithInfoWindowTitleImage(location, content, e.data.id,MAPS.vars.pathIcons + e.data.group + '.png');
+                }
             }, false);
             worker.postMessage({'points':JSON.parse(text)});
         });
@@ -39,11 +38,17 @@ app.controller("PointsListCtrl", function($scope, $http, $dataFactory, $app)
     };    
 })
 .controller("PointsAddCtrl", function($scope, $http, $dataFactory, $app, $location)
-{
+{   
+    $scope.files = [];
+    //listen for the file selected event
+    $scope.$on("fileSelected", function (event, args) {
+        $scope.$apply(function () {            
+            //add the file object to the scope's files collection
+            $scope.files.push(args.file);
+        });
+    });
     $scope.add=function(points) {
-        var fd=new FormData();
-        console.log(fd);
-        $dataFactory.add(points)        
+        $dataFactory.add(points,$scope.files)
         .success(function(data)
         {
             $location.path('/points/');
