@@ -34,16 +34,34 @@ class PointsView(View):
     def post(self, request, *args, **kwargs):
         try:            
             #http://localhost:8000/api/points/json/
-            format = self.kwargs['format']            
-            json_raw = request.body.decode(encoding='UTF-8')            
-            obj = json.loads(json_raw) 
-            entity = Points( name = obj["model"]["name"])
+            format = self.kwargs['format']              
+            json_raw = request.body.decode(encoding='UTF-8')
+            #print(request.POST['name'])
+            #print(request.POST['name'].values())
+            if len(request.FILES) == 1:
+                print(request.FILES.values()[0])            
+            for f in request.POST.items():
+                print('ps')
+                print(f)
+            for f in dict(request.FILES):
+                print('fl')
+                print(request.FILES[f])
+            #obj = json.loads(json_raw)             
+            #entity = Points( name = obj["model"]["name"])
             model = entity.save()
-            process_points(request.FILES[obj["files"][0]["name"]],model)
+            print("body")
+            print(obj)
+            print("files")
+            print(request.FILES)
+            print("dict")
+            print(dict(request.FILES))
+            
+            #process_points(request.FILES[obj["files"]["name"]],model)
             return HttpResponse(json.dumps({"message" : "OK"}), content_type='application/' + format)           
         except Exception as e:
+            print("error")
             print(e)
-            return HttpResponse( json.dumps({"error" : str(e) }), content_type='application/' + format )
+            return HttpResponse(json.dumps({"error" : str(e) }), content_type='application/' + format)
         
     def delete(self, request, *args, **kwargs):
         try:

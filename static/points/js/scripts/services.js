@@ -17,12 +17,11 @@ app.factory("$dataFactory", function($api, $app, $http){
     dataFactory.delete = function(id){
         return $http.delete($api.path + "?pk=" + id);
     };
-    dataFactory.add = function(points, files)
+    dataFactory.add = function(points, file)
     {
-        
         return $http.post(
             $api.path + "/", 
-            { model: points, files: files },
+            { model: points, file: file },
             { 'Content-Type': undefined },
             function (data) {
                 var formData = new FormData();
@@ -30,11 +29,13 @@ app.factory("$dataFactory", function($api, $app, $http){
                 // the browser will do a 'toString()' on the object which will result 
                 // in the value '[Object object]' on the server.
                 formData.append("model", angular.toJson(data.model));
+                formData.append("file" , data.file);
+                /*
                 //now add all of the assigned files
                 for (var i = 0; i < data.files; i++) {
                     //add each file to the form data and iteratively name them
                     formData.append("file" + i, data.files[i]);
-                }
+                }*/
                 return formData;
             });
     };

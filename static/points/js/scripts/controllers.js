@@ -40,23 +40,43 @@ app.controller("PointsListCtrl", function($scope, $http, $dataFactory, $app)
 .controller("PointsAddCtrl", function($scope, $http, $dataFactory, $app, $location)
 {   
     $scope.files = [];
-    //listen for the file selected event
+    
     $scope.$on("fileSelected", function (event, args) {
-        $scope.$apply(function () {            
-            //add the file object to the scope's files collection
+        $scope.$apply(function () { 
             $scope.files.push(args.file);
         });
     });
+    
     $scope.add=function(points) {
-        $dataFactory.add(points,$scope.files)
-        .success(function(data)
-        {
-            $location.path('/points/');
-        })
-        .error(function(error)
-        {
-            console.log(error);
-        });       
+        var formData = new FormData();
+        formData.append("name", $("#name").val());
+        formData.append("file" , $("#file"));
+        console.log(formData);
+        jQuery.ajax({
+            url: 'http://localhost:8000/api/points/json/',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            success: function(data){
+                console.log(data);
+            },
+            error: function(error){
+                console.log(error);
+            }
+        });
+        /*console.log($("#file"));
+        $dataFactory.add(points,$("#file"))
+            .success(function(data)
+            {
+                $location.path('/points/');
+            })
+            .error(function(error)
+            {
+                console.log(error);
+            });  
+        */
     };    
 });
 

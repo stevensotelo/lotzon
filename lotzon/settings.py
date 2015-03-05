@@ -41,9 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',    
     'corsheaders',
-    'home',    
     'map_layer',
-    'map_points',
     'points',
 )
 
