@@ -27,27 +27,20 @@
   	<body  ng-app="lotzon">
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Options</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+                <div class="navbar-header">                    
                     <a class="navbar-brand" href="/">Lotzon</a>
                 </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a href="#">Layers</a></li>
-                        <li><a href="#/points">Points</a></li>
-                        <li class="content-toggle"><a href="">Menu</a></li>
-                    </ul>
-                </div> 
             </div>
         </nav>
-        <div id="wrapper">            
-            <div id="content-sidebar" ng-view>
-               
+        <div id="wrapper">
+            <div class="content-toggle"><a href=""><<</a></div>
+            <div id="content-sidebar">
+                <ul class="nav nav-tabs nav-justified">
+                    <li role="presentation"><a href="#/layers">Layers</a></li>
+                    <li role="presentation"><a href="#/points">Points</a></li>
+                </ul>
+                <div ng-view>
+                </div>
             </div>
             <div id="content">
                 <div id="map-canvas"></div>                

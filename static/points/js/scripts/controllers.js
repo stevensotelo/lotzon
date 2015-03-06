@@ -39,21 +39,11 @@ app.controller("PointsListCtrl", function($scope, $http, $dataFactory, $app)
 })
 .controller("PointsAddCtrl", function($scope, $http, $dataFactory, $app, $location)
 {   
-    $scope.files = [];
-    
-    $scope.$on("fileSelected", function (event, args) {
-        $scope.$apply(function () { 
-            $scope.files.push(args.file);
-        });
-    });
-    
     $scope.add=function(points) {
         var formData = new FormData();
-        //var formData = new FormData($("frmPoints"));
-        formData.append("name", $("#name").val());
-        formData.append("split", $("#split").val());
-        formData.append("file" , $('#file').prop('files')[0]);
-        console.log(formData);
+        formData.append("name", points.name);
+        formData.append("split", points.split);
+        formData.append("file" , $('#file').prop('files')[0]);        
         jQuery.ajax({
             url: 'http://localhost:8000/api/points/json/',
             data: formData,
@@ -62,7 +52,7 @@ app.controller("PointsListCtrl", function($scope, $http, $dataFactory, $app)
             processData: false,
             type: 'POST',
             success: function(data){
-                console.log(data);
+                $location.path('/points');
             },
             error: function(error){
                 console.log(error);
