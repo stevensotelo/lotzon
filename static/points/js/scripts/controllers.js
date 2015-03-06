@@ -49,8 +49,10 @@ app.controller("PointsListCtrl", function($scope, $http, $dataFactory, $app)
     
     $scope.add=function(points) {
         var formData = new FormData();
+        //var formData = new FormData($("frmPoints"));
         formData.append("name", $("#name").val());
-        formData.append("file" , $("#file"));
+        formData.append("split", $("#split").val());
+        formData.append("file" , $('#file').prop('files')[0]);
         console.log(formData);
         jQuery.ajax({
             url: 'http://localhost:8000/api/points/json/',
@@ -66,17 +68,6 @@ app.controller("PointsListCtrl", function($scope, $http, $dataFactory, $app)
                 console.log(error);
             }
         });
-        /*console.log($("#file"));
-        $dataFactory.add(points,$("#file"))
-            .success(function(data)
-            {
-                $location.path('/points/');
-            })
-            .error(function(error)
-            {
-                console.log(error);
-            });  
-        */
     };    
 });
 

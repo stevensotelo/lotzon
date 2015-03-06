@@ -28,35 +28,16 @@ class PointsView(View):
                 data = Points.objects.all()          
             return HttpResponse(serializers.serialize(format, data), content_type='application/' + format)
         except Exception as e:
-            return HttpResponse( json.dumps({"error" : str(e) }), content_type='application/' + format )
-    
+            return HttpResponse( json.dumps({"error" : str(e) }), content_type='application/' + format )    
     
     def post(self, request, *args, **kwargs):
         try:            
             #http://localhost:8000/api/points/json/
-            format = self.kwargs['format']              
-            json_raw = request.body.decode(encoding='UTF-8')
-            #print(request.POST['name'])
-            #print(request.POST['name'].values())
-            if len(request.FILES) == 1:
-                print(request.FILES.values()[0])            
-            for f in request.POST.items():
-                print('ps')
-                print(f)
-            for f in dict(request.FILES):
-                print('fl')
-                print(request.FILES[f])
-            #obj = json.loads(json_raw)             
-            #entity = Points( name = obj["model"]["name"])
-            model = entity.save()
-            print("body")
-            print(obj)
-            print("files")
-            print(request.FILES)
-            print("dict")
-            print(dict(request.FILES))
-            
-            #process_points(request.FILES[obj["files"]["name"]],model)
+            format = self.kwargs['format']
+            entity = Points( name = request.POST['name'])
+            entity.save()
+            model = Points.objects.latest('id')
+            process_points(request.FILES['file'],model,request.POST['split'])
             return HttpResponse(json.dumps({"message" : "OK"}), content_type='application/' + format)           
         except Exception as e:
             print("error")
@@ -77,7 +58,7 @@ class PointsView(View):
             return HttpResponse( json.dumps({"error" : str(e) }), content_type='application/' + format )
 
 
-def process_points(file, file_points):    
+def process_points(file, file_points, split):    
     group = -1
     id = -1
     lt = -1
@@ -88,12 +69,12 @@ def process_points(file, file_points):
     file_name = os.path.join(settings.MAPS_POINTS, str(file_points.id) + '.json')
     file_writer = open(file_name, 'w+')
     content = ""
-    for l in file:
-        print(l)
+    for l in file:        
         line=str(l).replace("b'",'').replace("\\r",'').replace("\\n'",'')
         if line != "":
-            vals = re.split("\|",str(line).lower())
-            if number_line == 0:
+            vals = re.split(split,str(line).lower())
+            print(vals)
+            if number_line == 0:                
                 group = vals.index("group")
                 id = vals.index("id")
                 lt = vals.index("latitude")

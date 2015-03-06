@@ -1,8 +1,12 @@
 <h1>Points</h1>
-<form>
+<form id="frmPoints">
     <div class="form-group">
         <label>Name:</label>
         <input type="text" id="name" name="name" class="form-control" data-ng-model="points.name" placeholder="My Points" required />
+    </div>
+    <div class="form-group">
+        <label>Split pattern:</label>
+        <input type="text" id="split" name="split" class="form-control" data-ng-model="points.split" placeholder="\;" required />
     </div>
     <div class="form-group">
         <label>File:</label>
