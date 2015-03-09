@@ -1,7 +1,6 @@
 app.controller("PointsListCtrl", function($scope, $http, $dataFactory, $app)
 {
     $scope.data = [];  
-    $scope.selected = -1;  
     $dataFactory.list()
         .success(function(data) {
             $scope.data = data; 

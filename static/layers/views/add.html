@@ -1,0 +1,15 @@
+<form id="frmLayer">
+    <div class="form-group">
+        <label>Title:</label>
+        <input type="text" class="form-control" data-ng-model="layer.title" placeholder="My Layers" required />
+    </div>
+    <div class="form-group">
+        <label>File:</label>
+        <input type="file" id="file" name="file" class="form-control" data-ng-model="layer.file" required file-upload multiple />
+    </div>
+    <p>
+		<button type="submit" class="btn btn-primary btn-sm" ng-click="add(layer)">
+            <span class="glyphicon glyphicon-plus"></span> Add
+        </button>
+	</p>
+</form>

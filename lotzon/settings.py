@@ -41,8 +41,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',    
     'corsheaders',
-    'map_layer',
     'points',
+    'layers',
 )
 
 MIDDLEWARE_CLASSES = (

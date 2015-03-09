@@ -24,27 +24,18 @@
         <link rel="stylesheet" href="{% static "lotzon/css/map.css" %}">
         
 	</head>
-  	<body  ng-app="lotzon">
+  	<body ng-app="lotzon">
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">                    
                     <a class="navbar-brand" href="/">Lotzon</a>
                 </div>
             </div>
+            <div id="cmdMenu" class="content-toggle"><a href=""><<</a></div>
         </nav>
-        <div id="wrapper">
-            <div class="content-toggle"><a href=""><<</a></div>
-            <div id="content-sidebar">
-                <ul class="nav nav-tabs nav-justified">
-                    <li role="presentation"><a href="#/layers">Layers</a></li>
-                    <li role="presentation"><a href="#/points">Points</a></li>
-                </ul>
-                <div ng-view>
-                </div>
-            </div>
-            <div id="content">
-                <div id="map-canvas"></div>                
-                 {% block content %}
+        <div id="wrapper">            
+            <div id="content">                                
+                {% block content %}
                 {% endblock %}
             </div>
         </div>        

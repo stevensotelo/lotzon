@@ -3,13 +3,28 @@
 {% block title %}Lotzon{% endblock %}
 
 {% block content %}
-   
+    <div id="content-sidebar">
+        <ul class="nav nav-tabs nav-justified">
+            <li role="presentation"><a href="#/layers">Layers</a></li>
+            <li role="presentation"><a href="#/points">Points</a></li>
+        </ul>
+        <div ng-view>
+        </div>
+    </div>
+    <div id="map-canvas"></div>
 {% endblock %}
 
 {% block scripts %}
     {% load staticfiles %}    
-    <script type="text/javascript" src="{% static "points/js/scripts/app.js" %}"></script>
+    <script type="text/javascript" src="{% static "lotzon/js/scripts/app.js" %}"></script>
+    <!-- Points -->
     <script type="text/javascript" src="{% static "points/js/scripts/services.js" %}"></script>
     <script type="text/javascript" src="{% static "points/js/scripts/controllers.js" %}"></script>
     <script type="text/javascript" src="{% static "points/js/scripts/routes.js" %}"></script>
+    <!-- EndPoints -->
+    <!-- Layers -->
+    <script type="text/javascript" src="{% static "layers/js/scripts/services.js" %}"></script>
+    <script type="text/javascript" src="{% static "layers/js/scripts/controllers.js" %}"></script>
+    <script type="text/javascript" src="{% static "layers/js/scripts/routes.js" %}"></script>
+    <!-- EndLayers -->
 {% endblock %}

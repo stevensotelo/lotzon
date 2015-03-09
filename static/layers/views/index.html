@@ -1,0 +1,23 @@
+<div class="table-responsive">
+    <table class="table table-condensed" >
+        <tr>
+            <th>
+                Layer
+            </th>
+            <th>
+                Name
+            </th>
+        </tr>
+        <tr ng-repeat="item in data">
+            <td>
+                <button type="button" class="btn btn-xs" ng-click="getById(item.pk)">show</button>
+            </td>
+            <td>
+                {$ item.fields.title $} 
+            </td>
+        </tr>
+    </table>
+</div>
+<a href="#/layers/add" class="btn btn-primary btn-sm">
+  <span class="glyphicon glyphicon-plus"></span> Add Layer
+</a>
